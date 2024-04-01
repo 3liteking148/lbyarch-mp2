@@ -21,10 +21,10 @@ dot_product_fma_avx2:
     
     ; since subtraction cannot be done in x86 addressing, convert to -num_elements_remaining
     neg r8
-    jz end
+    jz add_loop_scalar_setup
 
     vpxor ymm3, ymm3
-add_loop:
+add_loop_vector:
     vmovapd ymm1, [rcx + r8 * 8]
     vmovapd ymm2, [rdx + r8 * 8]
 
@@ -33,7 +33,7 @@ add_loop:
 
     ; next 4 elements
     add r8, 4
-    jnz add_loop
+    jnz add_loop_vector
 
     ; obtain the sum of the 4 dot product streams
     sub rsp, 32
@@ -43,7 +43,8 @@ add_loop:
     addsd xmm0, [rsp + 16]
     addsd xmm0, [rsp + 24]
     add rsp, 32
-    
+
+add_loop_scalar_setup:
     ; include the leftover elements, if there's any
     sub r8, rax
     jz end
