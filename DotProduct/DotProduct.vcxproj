@@ -128,14 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dot_product_c.c" />
-    <ClCompile Include="dot_product_c.h" />
-    <ClCompile Include="dot_product_main.h" />
+    <ClCompile Include="dot_product_main.c" />
     <ClCompile Include="main.c" />
     <CustomBuild Include="dot_product_asm.asm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm\nasm.exe -f win64 dot_product.asm</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nasm\nasm.exe -f win64 dot_product_asm.asm</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dot_product_asm.obj</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,6 @@
 section .text
+bits 64
+default rel
 global dot_product_asm
 dot_product_asm:
     ; *A stored at rcx
@@ -9,7 +11,7 @@ dot_product_asm:
     mov r9, 0
     
     ; empty out xmm0
-    movsd xmm0, 0
+    pxor xmm0, xmm0
     
     lea rcx, [rcx]
     lea rdx, [rdx]

@@ -15,16 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="dot_product_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dot_product_main.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dot_product_c.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dot_product_c.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

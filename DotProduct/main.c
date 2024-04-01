@@ -1,3 +1,6 @@
+/*
+* Code with optimizations, commented out for build purposed.
+* 
 #include <stdio.h>
 #include <windows.h>
 
@@ -33,3 +36,4 @@ int main() {
 	}
 
 }
+*/
