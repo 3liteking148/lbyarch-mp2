@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define N 2000
+#define N 1048576
 
 // 2^20 1048576
 // 2^24 16777216
@@ -10,6 +10,8 @@
 // 2^30 1073741824
 
 extern void dot_product_asm(double* A, double* B, size_t n, double* sdot);
+extern void dot_product_fma(double* A, double* B, size_t n, double* sdot);
+extern void dot_product_fma_avx2(double* A, double* B, size_t n, double* sdot);
 
 double dot_product_c(double* A, double* B, int n, double* sdot) {
 	double result = 0.0;
@@ -38,20 +40,74 @@ int main() {
 	}
 
 	LARGE_INTEGER start, end, frequency;
-	for (int i = 0; i < 10; i++) {
-		double out;
+	double asm_time_avg = 0;
+	double c_time_avg = 0;
+	for (int i = 0; i < 30; i++) {
+		double out = 0;
 		QueryPerformanceFrequency(&frequency);
 		QueryPerformanceCounter(&start);
 		dot_product_asm(A, B, N, &out);
 		QueryPerformanceCounter(&end);
 
 		double time_ms = (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
-		printf("dp=%lf \n", out);
+		double asm_result = out;
+		printf("asm dp = %lf \n", asm_result);
 		printf("compute time : % lfms \n", time_ms);
+		asm_time_avg += time_ms;
+
+		out = 0;
+		QueryPerformanceFrequency(&frequency);
+		QueryPerformanceCounter(&start);
+		dot_product_c(A, B, N, &out);
+		QueryPerformanceCounter(&end);
+
+		time_ms = (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
+		double c_result = out;
+		printf("c dp = %lf \n", c_result);
+		printf("compute time : % lfms \n", time_ms);
+		c_time_avg += time_ms;
+
+		if (asm_result == c_result) {
+			printf("  - values are similar \n");
+		}
+		else {
+			printf("  - VALUES ARE NOT SIMILAR");
+		}
+	}
+
+	double fma_time_avg = 0;
+	double fmavx_time_avg = 0;
+	for (int i = 0; i < 30; i++) {
+		double out = 0;
+		QueryPerformanceFrequency(&frequency);
+		QueryPerformanceCounter(&start);
+		dot_product_fma(A, B, N, &out);
+		QueryPerformanceCounter(&end);
+
+		double time_ms = (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
+		printf("fma dp = %lf \n", out);
+		printf("compute time : % lfms \n", time_ms);
+		fma_time_avg += time_ms;
+
+		out = 0;
+		QueryPerformanceFrequency(&frequency);
+		QueryPerformanceCounter(&start);
+		dot_product_fma_avx2(A, B, N, &out);
+		QueryPerformanceCounter(&end);
+
+		time_ms = (end.QuadPart - start.QuadPart) * 1000.0 / frequency.QuadPart;
+		printf("fma_vx dp = %lf \n", out);
+		printf("compute time : % lfms \n", time_ms);
+		fmavx_time_avg += time_ms;
 	}
 
 	_aligned_free(A); // Free allocated memory
 	_aligned_free(B);
+
+	printf("average asm time : % lfms \n", asm_time_avg/30);
+	printf("average c time : % lfms \n", c_time_avg/30);
+	printf("average fma time : % lfms \n", fma_time_avg / 30);
+	printf("average fmavx time : % lfms \n", fmavx_time_avg / 30);
 
 	return 0;
 
