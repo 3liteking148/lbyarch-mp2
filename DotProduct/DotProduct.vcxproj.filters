@@ -18,12 +18,24 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="dot_product_main.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dot_product_c.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dot_product_c.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dot_product_fma_avx2.asm">
       <Filter>Source Files</Filter>
     </CustomBuild>
     <CustomBuild Include="dot_product_fma.asm">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="dot_product_asm.asm">
       <Filter>Source Files</Filter>
     </CustomBuild>
   </ItemGroup>
