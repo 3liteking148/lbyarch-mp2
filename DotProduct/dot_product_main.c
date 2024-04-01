@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define N 1048576
+#define N 1073741824
 
 // 2^20 1048576
 // 2^24 16777216
@@ -35,8 +35,8 @@ int main() {
 	}
 
 	for (int i = 0; i < N; i++) {
-		A[i] = i;
-		B[i] = i;
+		A[i] = i/64;
+		B[i] = i/64;
 	}
 
 	LARGE_INTEGER start, end, frequency;

@@ -1,6 +1,4 @@
 section .text
-bits 64
-default rel
 global dot_product_asm
 dot_product_asm:
     ; *A stored at rcx
