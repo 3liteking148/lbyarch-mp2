@@ -5,7 +5,7 @@ dot_product_asm:
     ; *B stored at rdx
     ; n stored at r8
     ; *sdot stored at r9
-
+    push r15
     mov r15, 0
     
     ; empty out xmm0
@@ -26,4 +26,5 @@ mul_and_add:
 
 end:
     movsd [r9], xmm0
+    pop r15
     ret
