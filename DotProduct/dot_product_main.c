@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-#define N 20000000
+#define N 1073741824
 
 // 2^20 1048576
 // 2^24 16777216
