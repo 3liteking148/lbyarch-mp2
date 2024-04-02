@@ -18,7 +18,7 @@ The implementation uses `MOVAPD` to move four double-precision floating point nu
 
 # Results and Discussion
 ## Correctness
-It works 100% as the numbers have exact representations. Here is a screenshot of the result found from testing with 2^30 elements:
+Here is a screenshot of the result found from testing with 2^30 elements:
 ![image](https://github.com/3liteking148/lbyarch-mp2/assets/113081450/b720b320-7854-4bc5-825f-f0e1fec36f06)
 
 ## Performance
