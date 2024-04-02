@@ -57,7 +57,7 @@ int main() {
 	double asm_time_avg = 0;
 	double c_time_avg = 0;
 	printf("Starting ASM/C test\n");
-	//printf("%2s | %40s | %10s | %40s | %10s | %6s\n", "#", "ASM output", "Time(ms)", "C output", "Time(ms)", "Equal?");
+	printf("%2s | %40s | %10s | %40s | %10s | %6s\n", "#", "ASM output", "Time(ms)", "C output", "Time(ms)", "Equal?");
 	for (int i = 0; i < 30; i++) {
 		double out = 0;
 		QueryPerformanceFrequency(&frequency);
