@@ -39,6 +39,18 @@ int main() {
 		B[i] = i/64;
 	}
 
+	double out = 0;
+	printf("Initial correctness check: (mantissa-exponent representation in parenthesis)\n");
+	dot_product_asm(A, B, N, &out);
+	printf("ASM:      %lf (%lA)\n", out, out);
+	dot_product_c(A, B, N, &out);
+	printf("C:        %lf (%lA)\n", out, out);
+	dot_product_fma(A, B, N, &out);
+	printf("FMA:      %lf (%lA)\n", out, out);
+	dot_product_fma_avx2(A, B, N, &out);
+	printf("FMA-AVX2: %lf (%lA)\n", out, out);
+	printf("\n");
+
 	LARGE_INTEGER start, end, frequency;
 	double asm_time_avg = 0;
 	double c_time_avg = 0;
