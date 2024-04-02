@@ -18,7 +18,9 @@ The implementation uses `MOVAPD` to move four double-precision floating point nu
 
 # Results and Discussion
 ## Correctness
-It works 100% as the numbers have exact representations
+It works 100% as the numbers have exact representations. Here is a screenshot of the result found from testing with 2^30 elements:
+![image](https://github.com/3liteking148/lbyarch-mp2/assets/113081450/b720b320-7854-4bc5-825f-f0e1fec36f06)
+
 ## Performance
 The test was performed on a laptop with Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz 1.99 GHz, with 36 GB of RAM on the Windows OS. Four different versions all in one program: the ASM and C kernel, plus the additional two using different functions and optimizations. The time tracked was taken using QueryPerformanceCounter, which provides a more accurate time in Windows. 
 
