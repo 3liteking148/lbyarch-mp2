@@ -26,7 +26,7 @@ double dot_product_c(double* A, double* B, int n, double* sdot) {
 }
 
 int main() {
-	printf("Initializing %ld elements (requires %lf GiB of memory).\n", N, ((N * 2 * sizeof(double)) / 1024.0 / 1024.0 / 1024.0));
+	printf("Initializing %ld elements (requires %lf GiB of memory).\n", N, (((double)N * 2 * sizeof(double)) / 1024.0 / 1024.0 / 1024.0));
 	double* A = (double*)_aligned_malloc(N * sizeof(double), 32);
 	double* B = (double*)_aligned_malloc(N * sizeof(double), 32);
 	if (A == NULL || B == NULL) {
@@ -57,7 +57,7 @@ int main() {
 	double asm_time_avg = 0;
 	double c_time_avg = 0;
 	printf("Starting ASM/C test\n");
-	printf("%2s | %40s | %10s | %40s | %10s | %6s\n", "#", "ASM output", "Time(ms)", "C output", "Time(ms)", "Equal?");
+	printf("%2s | %40s | %11s | %40s | %11s | %6s\n", "#", "ASM output", "Time(ms)", "C output", "Time(ms)", "Equal?");
 	for (int i = 0; i < 30; i++) {
 		double out = 0;
 		QueryPerformanceFrequency(&frequency);
@@ -79,12 +79,12 @@ int main() {
 		c_time_avg += c_time;
 		double c_result = out;
 
-		printf_s("%2d | %40lf | %10lf | %40lf | %10lf | %6c\n", i + 1, asm_result, asm_time, c_result, c_time, asm_result == c_result ? 'Y' : 'N');
+		printf_s("%2d | %40lf | %11lf | %40lf | %11lf | %6c\n", i + 1, asm_result, asm_time, c_result, c_time, asm_result == c_result ? 'Y' : 'N');
 	}
 	printf("\n");
 
 	printf("Starting FMA/FMA-AVX2 test\n");
-	printf("%2s | %40s | %10s | %40s | %10s\n", "#", "FMA output", "Time(ms)", "FMA-AVX2 output", "Time(ms)");
+	printf("%2s | %40s | %11s | %40s | %11s\n", "#", "FMA output", "Time(ms)", "FMA-AVX2 output", "Time(ms)");
 	double fma_time_avg = 0;
 	double fmavx_time_avg = 0;
 	for (int i = 0; i < 30; i++) {
@@ -108,7 +108,7 @@ int main() {
 		fmavx_time_avg += fma_avx2_time;
 		double fma_avx2_result = out;
 
-		printf("%2d | %40lf | %10lf | %40lf | %10lf\n", i + 1, fma_result, fma_time, fma_avx2_result, fma_avx2_time);
+		printf("%2d | %40lf | %11lf | %40lf | %11lf\n", i + 1, fma_result, fma_time, fma_avx2_result, fma_avx2_time);
 	}
 	printf("\n");
 
@@ -119,6 +119,7 @@ int main() {
 	printf("average c time : % lfms \n", c_time_avg/30);
 	printf("average fma time : % lfms \n", fma_time_avg / 30);
 	printf("average fmavx time : % lfms \n", fmavx_time_avg / 30);
+	// printf("| % lfms | % lfms | % lfms | % lfms | \n", asm_time_avg / 30, c_time_avg / 30, fma_time_avg / 30, fmavx_time_avg / 30);
 
 	return 0;
 
